@@ -1,4 +1,4 @@
-const { Workout } = require('../model/workoutSchema');
+const { Workout } = require('../model/users');
 
 const getGoal = async (req, res) => {
   try {
@@ -53,7 +53,7 @@ const saveGoal = async (req, res) => {
 
     // Normalize username
     username = decodeURIComponent(username);
-    const { activity, duration, distance, steps, age, height, weight } = req.body;
+    const { activity, duration = 0, distance = 0, steps = 0, age, height, weight } = req.body;
     let workoutDoc = await Workout.findOne({ username });
     console.log("  workoutController/saveGoal workoutDoc ", workoutDoc);
     if (!workoutDoc) {
@@ -87,7 +87,7 @@ const saveEntry = async (req, res) => {
 
     // Normalize username
     username = decodeURIComponent(username);
-    const { activity, date, duration, distance, steps } = req.body;
+    const { activity, date, duration = 0, distance = 0, steps = 0 } = req.body;
 
     // Check if date is in the future
     const entryDate = new Date(date);

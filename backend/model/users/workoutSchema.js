@@ -18,9 +18,12 @@ const goalSchema = new Schema({
 
 const workoutSchema = new Schema({
   username: { type: String, required: true },
-  activities: [activitySchema],
-  goals: [goalSchema]
+  activities: { type: [activitySchema] },
+  goals: { type: [goalSchema] }
 });
+
+// Add index on goals.activity for faster querying
+workoutSchema.index({ 'goals.activity': 1 });
 
 const Workout = mongoose.model('Workout', workoutSchema);
 
